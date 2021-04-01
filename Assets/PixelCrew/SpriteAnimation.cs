@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace PixelCrew
 {
@@ -56,7 +57,8 @@ namespace PixelCrew
         private void StartAnimation()
         {
             _nextFrameTime = Time.time + _secPerFrame;
-            _currentFrame = 0;
+            var clip = _clips[_currentClip];
+            _currentFrame = clip.RandomizeStart ? Random.Range(0, clip.Sprites.Length) : 0;
             enabled = _isPlaying = true;
         }
 
@@ -105,12 +107,14 @@ namespace PixelCrew
         [SerializeField] private Sprite[] _sprites;
         [SerializeField] private bool _loop;
         [SerializeField] private bool _allowNextClip;
+        [SerializeField] private bool _randomizeStart;
         [SerializeField] private UnityEvent _onComplete;
 
         public string Name => _name;
         public Sprite[] Sprites => _sprites;
         public bool Loop => _loop;
         public bool AllowNextClip => _allowNextClip;
+        public bool RandomizeStart => _randomizeStart;
         public UnityEvent OnComplete => _onComplete;
     }
 }

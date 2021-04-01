@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: level
+    uniqueID: 2804888647
+    locked: 0
+  - name: building
+    uniqueID: 1323077173
+    locked: 0
+  - name: creatures
+    uniqueID: 13129301
+    locked: 0
