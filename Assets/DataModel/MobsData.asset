@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b1aab00df3436588be21946011c764, type: 3}
+  m_Name: MobsData
+  m_EditorClassIdentifier: 
+  _list:
+  - _prefab: {fileID: 8246837507315452609, guid: 6aed5fde7406a48f0966a320e0de843f,
+      type: 3}
+    _id: crabby
+    _icon: {fileID: 21300000, guid: 7d5e1a28a355a49038a5c0764a8e7663, type: 3}
+    _lvlToScale:
+    - _level: 0
+      _scale: 1
+  - _prefab: {fileID: 8246837507315452609, guid: fc71818a7aed04ab5ba21eb7881b39ea,
+      type: 3}
+    _id: sharky
+    _icon: {fileID: 21300000, guid: 87591a6cc69a54a3981232ae09516430, type: 3}
+    _lvlToScale:
+    - _level: 0
+      _scale: 1
