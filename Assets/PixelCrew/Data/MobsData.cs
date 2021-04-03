@@ -22,9 +22,9 @@ namespace PixelCrew.Data
         [SerializeField] private Mob _prefab;
         [SerializeField] private string _id;
         [SerializeField] private Sprite _icon;
-        [SerializeField] private LevelScale[] _lvlToScale;
+        [SerializeField] private LevelData[] _lvlData;
 
-        public LevelScale[] LvlToScale => _lvlToScale;
+        public LevelData[] LvlData => _lvlData;
 
         public Mob Prefab => _prefab;
         public string Id => _id;
@@ -32,7 +32,7 @@ namespace PixelCrew.Data
     }
 
     [Serializable]
-    public class LevelScale
+    public class LevelData
     {
         [SerializeField] private int _level;
         [SerializeField] private float _scale;

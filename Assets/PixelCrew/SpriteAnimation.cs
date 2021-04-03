@@ -39,8 +39,10 @@ namespace PixelCrew
             enabled = false;
         }
 
-        public void SetClip(string clipName)
+        public void SetClip(string clipName, bool force = false)
         {
+            if (clipName == _clips[_currentClip].Name && !force) return;
+
             for (var i = 0; i < _clips.Length; i++)
             {
                 if (_clips[i].Name == clipName)
