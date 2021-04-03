@@ -8,6 +8,7 @@ namespace PixelCrew.Components
         [SerializeField] private int _health;
         [SerializeField] private UnityEvent _onDamage;
         [SerializeField] private UnityEvent _onDie;
+        public int Hp => _health;
 
         public void Modify(int changeValue)
         {
@@ -17,6 +18,11 @@ namespace PixelCrew.Components
             {
                 _onDie?.Invoke();
             }
+        }
+
+        public void SetHealth(int health)
+        {
+            _health = health;
         }
     }
 }

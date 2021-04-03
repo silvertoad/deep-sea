@@ -35,9 +35,13 @@ namespace PixelCrew.Data
     public class LevelData
     {
         [SerializeField] private int _level;
-        [SerializeField] private float _scale;
+        [SerializeField] private float _scale = 1;
+        [SerializeField] private int _damage = 1;
+        [SerializeField] private int _hp = 1;
 
         public int Level => _level;
         public float Scale => _scale;
+        public int Damage => _damage;
+        public int HP => _hp;
     }
 }

@@ -8,14 +8,14 @@ namespace PixelCrew.Town
     {
         [SerializeField] public TownState _state;
         [SerializeField] public Transform _spawnPoint;
-        [SerializeField] public TownType _townType;
+        [SerializeField] public TeamType _teamType;
         [SerializeField] public Transform _destinationPoint;
 
         public TownState State => _state;
 
         public Transform SpawnPoint => _spawnPoint;
 
-        public TownType TownType => _townType;
+        public TeamType TeamType => _teamType;
 
         public Transform DestinationPoint => _destinationPoint;
 
@@ -36,13 +36,14 @@ namespace PixelCrew.Town
             state.Count.Value++;
             var def = Defs.I.Mobs.Get(id);
             var mob = Instantiate(def.Prefab, _spawnPoint.position, Quaternion.identity);
-            mob.Setup(state, def, _townType);
+            mob.Setup(state, def, _teamType);
         }
     }
 
-    public enum TownType
+    public enum TeamType
     {
-        Left,
-        Right
+        A,
+        B,
+        NA
     }
 }
