@@ -34,10 +34,6 @@ namespace PixelCrew.Chars
             throw new ArgumentException("Destination for fighter not found");
         }
 
-        public void Update()
-        {
-        }
-
         private void FixedUpdate()
         {
             var direction = _destination - transform.position;

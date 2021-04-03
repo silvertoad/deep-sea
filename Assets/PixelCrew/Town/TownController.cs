@@ -33,6 +33,7 @@ namespace PixelCrew.Town
         public void Spawn(string id)
         {
             var state = _state.Mobs.First(x => x.Id == id);
+            state.Count.Value++;
             var def = Defs.I.Mobs.Get(id);
             var mob = Instantiate(def.Prefab, _spawnPoint.position, Quaternion.identity);
             mob.Setup(state, def, _townType);
