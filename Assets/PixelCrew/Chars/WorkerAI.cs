@@ -19,7 +19,7 @@ namespace PixelCrew.Chars
         private Vector2 _moveDirection;
         private Animator _animator;
         private TownController _town;
-
+        private AudioSource _collectSound;
         [SerializeField] private float _collectCooldown = 0.5f;
 
         private void Awake()
@@ -27,6 +27,7 @@ namespace PixelCrew.Chars
             _body = GetComponent<Rigidbody2D>();
             _mob = GetComponent<Mob>();
             _animator = GetComponent<Animator>();
+            _collectSound = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -55,6 +56,7 @@ namespace PixelCrew.Chars
 
             yield return new WaitForSeconds(_collectCooldown);
             _town.AddCoins(_mob.LevelData.CoinPerPick);
+            _collectSound.Play();
 
             _currentZone = (int) Mathf.Repeat(_currentZone + 1, _resourceZones.Length);
             _currentTask = StartCoroutine(Ai());

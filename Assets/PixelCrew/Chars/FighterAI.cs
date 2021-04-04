@@ -13,20 +13,20 @@ namespace PixelCrew.Chars
         private Rigidbody2D _body;
         private Mob _mob;
         private Vector3 _destination;
-        [SerializeField] private float _speed = 1;
         [SerializeField] private Cooldown _attackCooldown;
         [SerializeField] private LayerCheck _groundCheck;
         [Space] [SerializeField] private Transform _rayOffset;
         [SerializeField] private LayerMask _enemiesLayer;
 
         private Coroutine _currentTask;
-        private RaycastHit2D[] _hits = new RaycastHit2D[5];
+        private readonly RaycastHit2D[] _hits = new RaycastHit2D[5];
 
         private Vector2 _moveDirection;
         private Animator _animator;
         private readonly List<HealthComponent> _enemies = new List<HealthComponent>();
         [SerializeField] private float _attackThinkTime = 0.1f;
         private HealthComponent _health;
+        private AudioSource _hitSound;
 
         private void Awake()
         {
@@ -34,6 +34,7 @@ namespace PixelCrew.Chars
             _mob = GetComponent<Mob>();
             _animator = GetComponent<Animator>();
             _health = GetComponent<HealthComponent>();
+            _hitSound = GetComponent<AudioSource>();
         }
 
         private void Start()
@@ -106,6 +107,7 @@ namespace PixelCrew.Chars
         {
             _attackCooldown.Reset();
             _animator.SetTrigger("attack");
+            _hitSound.Play();
             yield return new WaitForSeconds(_attackThinkTime);
             enemies.ForEach(x => x.Modify(-_mob.LevelData.Damage));
         }
@@ -158,13 +160,14 @@ namespace PixelCrew.Chars
 
             transform.localScale = scale;
         }
-
+#if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
             Handles.color = _enemies.Count > 0 ? Color.green : Color.blue;
             Handles.DrawLine(transform.position, _rayOffset.position);
         }
-    }
+  #endif
+  }
 
     [Serializable]
     public class Cooldown

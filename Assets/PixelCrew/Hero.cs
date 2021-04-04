@@ -156,6 +156,8 @@ namespace PixelCrew
             return hit.collider != null;
         }
 
+#if  UNITY_EDITOR
+        
         private void OnDrawGizmos()
         {
             Handles.color = IsGrounded() ? HandlesUtils.TransparentGreen : HandlesUtils.TransparentRed;
@@ -164,6 +166,7 @@ namespace PixelCrew
             Handles.color = HandlesUtils.TransparentRed;
             Handles.DrawSolidDisc(_attackPoint.position, Vector3.forward, _attackCheckRadius);
         }
+#endif
 
         public void SaySomething()
         {

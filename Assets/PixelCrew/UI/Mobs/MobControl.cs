@@ -16,6 +16,7 @@ namespace PixelCrew.UI.Mobs
         [SerializeField] private GameObject _selection;
         [SerializeField] private GameObject _container;
         [SerializeField] private Image _upgradeProgressBar;
+        [SerializeField] private AudioSource _sound;
 
         [Space] [SerializeField] private Events.StringEvent _onSelect;
 
@@ -61,10 +62,18 @@ namespace PixelCrew.UI.Mobs
             _trash.Add(selection.SubscribeAndFire(UpdateSelection));
         }
 
+        private bool _isSelected;
+
         private void UpdateSelection(int index)
         {
+            var prevState = _isSelected;
+            _isSelected = index == _index;
             _container.transform.localScale = Vector3.one * (index == _index ? 1.2f : 1f);
             _selection.SetActive(index == _index);
+            if (prevState != _isSelected)
+            {
+                _sound.Play();
+            }
         }
 
         private void Update()

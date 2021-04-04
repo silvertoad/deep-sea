@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using PixelCrew.State;
 using UnityEngine;
 
@@ -28,8 +29,16 @@ namespace PixelCrew.Town
                     Id = x.Id
                 }).ToArray();
             }
-            
+
+            StartCoroutine(StartRoutine());
+        }
+
+        private IEnumerator StartRoutine()
+        {
+            yield return new WaitForSeconds(1f);
             Spawn("crabby");
+            yield return new WaitForSeconds(0.5f);
+            Spawn("sharky");
         }
 
         public void Spawn(string id)
