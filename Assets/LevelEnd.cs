@@ -4,13 +4,11 @@ using DG.Tweening;
 using PixelCrew.Town;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelEnd : MonoBehaviour
 {
-    [SerializeField] private PlayerInput[] _input;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _image;
     [SerializeField] private Color _targetColor;
@@ -20,12 +18,6 @@ public class LevelEnd : MonoBehaviour
     {
         gameObject.SetActive(true);
         var team = (TeamType) loosedTeam;
-        Keyboard.current.onTextInput += OnTextInput;
-
-        foreach (var playerInput in _input)
-        {
-            playerInput.enabled = false;
-        }
 
         _text.text = $"Team {team} loose!!! Kekeke...";
         StartCoroutine(WaitAndFinish());
@@ -38,12 +30,7 @@ public class LevelEnd : MonoBehaviour
         _complete = true;
     }
 
-    private void OnDestroy()
-    {
-        Keyboard.current.onTextInput -= OnTextInput;
-    }
-
-    private void OnTextInput(char obj)
+    private void Update()
     {
         if (_complete)
         {

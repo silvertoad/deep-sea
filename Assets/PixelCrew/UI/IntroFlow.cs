@@ -1,7 +1,6 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace PixelCrew.UI
@@ -16,8 +15,19 @@ namespace PixelCrew.UI
 
         private void Awake()
         {
-            Keyboard.current.onTextInput += OnTextInput;
             _currentAction = MoveToTutorial;
+        }
+
+        private void Update()
+        {
+            if (Input.anyKey)
+            {
+                if (_waitForAction)
+                {
+                    _waitForAction = false;
+                    _currentAction();
+                }
+            }
         }
 
         private void MoveToTutorial()
@@ -40,19 +50,5 @@ namespace PixelCrew.UI
         }
 
         private Action _currentAction;
-
-        private void OnTextInput(char obj)
-        {
-            if (_waitForAction)
-            {
-                _waitForAction = false;
-                _currentAction();
-            }
-        }
-
-        private void OnDestroy()
-        {
-            Keyboard.current.onTextInput -= OnTextInput;
-        }
     }
 }

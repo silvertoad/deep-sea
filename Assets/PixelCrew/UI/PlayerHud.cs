@@ -5,7 +5,6 @@ using PixelCrew.Town;
 using PixelCrew.UI.Mobs;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace PixelCrew.UI
 {
@@ -46,39 +45,29 @@ namespace PixelCrew.UI
             _selection.Value = newIndex;
         }
 
-        public void OnSelection(InputAction.CallbackContext context)
+        public void OnSelect(int delta)
         {
-            var direction = context.ReadValue<float>();
             if (!_selectCooldown.IsReady) return;
-            if (direction == 0) return;
             if (_lockSelection) return;
-            Select(direction > 0 ? 1 : -1);
+            Select(delta);
         }
 
-        public void OnUse(InputAction.CallbackContext context)
+        public void OnUse()
         {
-            if (context.performed)
-            {
-                _controls[_selection.Value].BuyMob();
-                Debug.Log("OnUse");
-            }
+            _controls[_selection.Value].BuyMob();
+            Debug.Log("OnUse");
         }
 
-        public void OnUpgrade(InputAction.CallbackContext context)
+        public void OnStartHold()
         {
-            if (context.performed)
-            {
-                _controls[_selection.Value].IsUpgrading = true;
-                _lockSelection = true;
-                Debug.Log("upgrade stared");
-            }
+            _controls[_selection.Value].IsUpgrading = true;
+            _lockSelection = true;
+        }
 
-            if (context.canceled)
-            {
-                _lockSelection = false;
-                _controls[_selection.Value].IsUpgrading = false;
-                Debug.Log("upgrade cancelled");
-            }
+        public void OnEndHold()
+        {
+            _lockSelection = false;
+            _controls[_selection.Value].IsUpgrading = false;
         }
     }
 }
