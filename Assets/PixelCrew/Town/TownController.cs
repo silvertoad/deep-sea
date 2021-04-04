@@ -62,8 +62,8 @@ namespace PixelCrew.Town
 
     public enum TeamType
     {
-        A,
-        B,
-        NA
+        A = 0,
+        B = 1,
+        NA = 2
     }
 }
