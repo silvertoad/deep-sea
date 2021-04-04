@@ -2609,7 +2609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &314131858
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2648,6 +2648,7 @@ MonoBehaviour:
   - {fileID: 1840717449}
   _text: {fileID: 1850515474}
   _image: {fileID: 314131860}
+  _targetColor: {r: 0, g: 0, b: 0, a: 0.3529412}
 --- !u!114 &314131860
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using PixelCrew.Town;
 using TMPro;
@@ -12,10 +13,12 @@ public class LevelEnd : MonoBehaviour
     [SerializeField] private PlayerInput[] _input;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Image _image;
+    [SerializeField] private Color _targetColor;
     private bool _complete;
 
     public void Complete(int loosedTeam)
     {
+        gameObject.SetActive(true);
         var team = (TeamType) loosedTeam;
         Keyboard.current.onTextInput += OnTextInput;
 
@@ -30,11 +33,7 @@ public class LevelEnd : MonoBehaviour
 
     private IEnumerator WaitAndFinish()
     {
-        var target = _image.color;
-        var prev = _image.color;
-        prev.a = 0f;
-        _image.color = prev;
-        _image.DOColor(target, 0.5f);
+        _image.DOColor(_targetColor, 0.5f);
         yield return new WaitForSeconds(1);
         _complete = true;
     }
