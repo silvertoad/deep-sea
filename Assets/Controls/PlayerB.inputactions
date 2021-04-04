@@ -1,0 +1,93 @@
+{
+    "name": "PlayerB",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "3de98fde-75d7-4da7-8e30-ac417383376d",
+            "actions": [
+                {
+                    "name": "selection",
+                    "type": "Button",
+                    "id": "f694418f-7c96-427a-9269-ef055f13102b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "use",
+                    "type": "Button",
+                    "id": "9206ec69-62b6-492a-a6cb-7657ec4afedc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap"
+                },
+                {
+                    "name": "upgade",
+                    "type": "Button",
+                    "id": "b40a76e8-7cdb-4cae-91ef-03d11673ca82",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "8006be80-3b52-44db-a853-5a5665705ee2",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selection",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f463a7ff-ce60-414b-a465-6d0bcfebe532",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "9f36c542-c220-420c-b511-57383aa26534",
+                    "path": "<Keyboard>/leftBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "65cc5ec4-bc3a-4e96-ad90-5934572a0795",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f326f812-8a4a-48a9-a49e-b4239c24529a",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "upgade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

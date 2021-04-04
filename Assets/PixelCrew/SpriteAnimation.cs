@@ -39,7 +39,7 @@ namespace PixelCrew
             enabled = false;
         }
 
-        public void SetClip(string clipName, bool force = false)
+        public void SetClip(string clipName, bool force)
         {
             if (clipName == _clips[_currentClip].Name && !force) return;
 
@@ -54,6 +54,16 @@ namespace PixelCrew
             }
 
             enabled = _isPlaying = false;
+        }
+
+        public void SetClip(string clipName)
+        {
+            SetClip(clipName, false);
+        }
+
+        public void SetClipForce(string clipName)
+        {
+            SetClip(clipName, true);
         }
 
         private void StartAnimation()

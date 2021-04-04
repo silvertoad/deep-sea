@@ -3,7 +3,7 @@ using PixelCrew.State;
 
 namespace PixelCrew.UI.Mobs
 {
-    public class MobList : ComponentDataGroup<MobState, MobControl>
+    public class MobList : ComponentDataGroup<MobItem, MobControl>
     {
     }
 }

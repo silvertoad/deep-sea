@@ -252,6 +252,7 @@ namespace PixelCrew
                 direction.Normalize();
                 body.AddForce(direction * _damagePushForce, ForceMode2D.Impulse);
             });
+            Physics2D.CircleCast(transform.position, 1, Vector2.zero);
         }
 
         private void CircleCast(Vector2 pos, float radius, Action<Collider2D> success, LayerMask? mask = null)

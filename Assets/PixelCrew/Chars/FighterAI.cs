@@ -5,7 +5,6 @@ using PixelCrew.Components;
 using PixelCrew.Town;
 using UnityEditor;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace PixelCrew.Chars
 {
@@ -18,7 +17,6 @@ namespace PixelCrew.Chars
         [SerializeField] private Cooldown _attackCooldown;
         [SerializeField] private LayerCheck _groundCheck;
         [Space] [SerializeField] private Transform _rayOffset;
-        [SerializeField] private bool _isDead;
         [SerializeField] private LayerMask _enemiesLayer;
 
         private Coroutine _currentTask;
@@ -27,13 +25,15 @@ namespace PixelCrew.Chars
         private Vector2 _moveDirection;
         private Animator _animator;
         private readonly List<HealthComponent> _enemies = new List<HealthComponent>();
-        [SerializeField] private float _attackThinkTime = 0.2f;
+        [SerializeField] private float _attackThinkTime = 0.1f;
+        private HealthComponent _health;
 
         private void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
             _mob = GetComponent<Mob>();
             _animator = GetComponent<Animator>();
+            _health = GetComponent<HealthComponent>();
         }
 
         private void Start()
@@ -41,11 +41,17 @@ namespace PixelCrew.Chars
             GetComponent<FoF>().SetTeam(_mob.TeamType);
             GetComponent<HealthComponent>().SetHealth(_mob.LevelData.HP);
             _destination = FindDestination();
+            MoveToDestination();
+            UpdateDirection();
+            gameObject.layer = LayerMask.NameToLayer("Enemies" + _mob.TeamType);
+            var enemiesName = _mob.EnemiesTeam;
+            _enemiesLayer = LayerMask.GetMask(
+                "Enemies" + enemiesName, "Workers" + enemiesName);
         }
 
         private void Update()
         {
-            if (_isDead) return;
+            if (_health.IsDead) return;
 
             _attackCooldown.Tick();
 
@@ -71,7 +77,7 @@ namespace PixelCrew.Chars
 
             _animator.SetBool("is-ground", isGrounded);
             _animator.SetBool("is-running", _moveDirection.x != 0);
-            _animator.SetBool("is-dead", _isDead);
+            _animator.SetBool("is-dead", _health.IsDead);
         }
 
         private List<HealthComponent> GetEnemies()
@@ -99,17 +105,14 @@ namespace PixelCrew.Chars
         private IEnumerator AttackMode(List<HealthComponent> enemies)
         {
             _attackCooldown.Reset();
-            yield return new WaitForSeconds(Random.Range(0, _attackThinkTime));
-            if (_isDead) yield break;
-
             _animator.SetTrigger("attack");
+            yield return new WaitForSeconds(_attackThinkTime);
             enemies.ForEach(x => x.Modify(-_mob.LevelData.Damage));
         }
 
         public void Die()
         {
-            _isDead = true;
-            _animator.SetBool("is-dead", _isDead);
+            _animator.SetBool("is-dead", _health.IsDead);
         }
 
         private void MoveToDestination()
@@ -135,7 +138,7 @@ namespace PixelCrew.Chars
         private void FixedUpdate()
         {
             var velocity = _body.velocity;
-            velocity.x = _moveDirection.x * _speed;
+            velocity.x = _moveDirection.x * _mob.LevelData.Speed;
             _body.velocity = velocity;
             UpdateDirection();
         }
@@ -159,11 +162,7 @@ namespace PixelCrew.Chars
         private void OnDrawGizmosSelected()
         {
             Handles.color = _enemies.Count > 0 ? Color.green : Color.blue;
-
-            var distance = Vector3.Distance(transform.position, _rayOffset.position);
-            var direction = (_rayOffset.position - transform.position).normalized;
-            // Handles.DrawLine(transform.position, _rayOffset.position);
-            Handles.DrawLine(transform.position, transform.position + (direction * distance));
+            Handles.DrawLine(transform.position, _rayOffset.position);
         }
     }
 

@@ -17,29 +17,17 @@ namespace PixelCrew.Chars
         public TeamType TeamType => _teamType;
 
         public LevelData LevelData => _levelData;
+        public TeamType EnemiesTeam => _teamType == TeamType.A ? TeamType.B : TeamType.A;
 
         public void Setup(MobState state, MobData mobData, TeamType teamType)
         {
             _teamType = teamType;
             _mobData = mobData;
             _state = state;
-            _levelData = GetLevelData();
+            _levelData = _mobData.GetLevelData(_state.Level.Value);
 
             var transform1 = transform;
             transform1.localScale = transform1.localScale * _levelData.Scale;
-        }
-
-        private LevelData GetLevelData()
-        {
-            var levelValue = _state.Level.Value;
-            LevelData levelData = null;
-            foreach (var lvlScale in _mobData.LvlData)
-            {
-                levelData = lvlScale;
-                if (levelData.Level > levelValue) break;
-            }
-
-            return levelData;
         }
     }
 }
